@@ -1,13 +1,13 @@
-'use client';
+"use client";
 
 /**
  * Error Boundary Component
  * Catches and handles React errors gracefully
  */
 
-import React, { Component, ErrorInfo, ReactNode } from 'react';
-import { Button } from './ui/Button';
-import { Card, CardHeader, CardContent } from './ui/Card';
+import React, { Component, ErrorInfo, ReactNode } from "react";
+import { Button } from "./ui/Button";
+import { Card, CardHeader, CardContent } from "./ui/Card";
 
 interface Props {
   children: ReactNode;
@@ -39,7 +39,7 @@ export class ErrorBoundary extends Component<Props, State> {
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo) {
-    console.error('Error caught by boundary:', error, errorInfo);
+    console.error("Error caught by boundary:", error, errorInfo);
     this.setState({
       error,
       errorInfo,
@@ -98,23 +98,24 @@ export class ErrorBoundary extends Component<Props, State> {
                     <p className="text-sm font-mono text-red-900 mb-2">
                       <strong>Error:</strong> {this.state.error.message}
                     </p>
-                    {process.env.NODE_ENV === 'development' && this.state.errorInfo && (
-                      <details className="mt-2">
-                        <summary className="cursor-pointer text-sm text-red-700 hover:text-red-900">
-                          Show error details
-                        </summary>
-                        <pre className="mt-2 text-xs text-red-800 overflow-auto max-h-64 p-2 bg-red-100 rounded">
-                          {this.state.errorInfo.componentStack}
-                        </pre>
-                      </details>
-                    )}
+                    {process.env.NODE_ENV === "development" &&
+                      this.state.errorInfo && (
+                        <details className="mt-2">
+                          <summary className="cursor-pointer text-sm text-red-700 hover:text-red-900">
+                            Show error details
+                          </summary>
+                          <pre className="mt-2 text-xs text-red-800 overflow-auto max-h-64 p-2 bg-red-100 rounded">
+                            {this.state.errorInfo.componentStack}
+                          </pre>
+                        </details>
+                      )}
                   </div>
 
                   <div className="space-y-2 text-sm text-secondary-700">
                     <p className="font-medium">What you can try:</p>
                     <ul className="list-disc list-inside space-y-1 ml-2">
                       <li>Refresh the page to try again</li>
-                      <li>Clear your browser's localStorage</li>
+                      <li>Clear your browser&apos;s localStorage</li>
                       <li>Try using a different browser</li>
                       <li>Check your internet connection</li>
                     </ul>
@@ -127,7 +128,7 @@ export class ErrorBoundary extends Component<Props, State> {
                   Try Again
                 </Button>
                 <Button
-                  onClick={() => window.location.href = '/'}
+                  onClick={() => (window.location.href = "/")}
                   variant="outline"
                 >
                   Go Home

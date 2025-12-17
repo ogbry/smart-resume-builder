@@ -1,13 +1,28 @@
-'use client';
+"use client";
 
 /**
  * Resume Context
  * Global state management for resume data
  */
 
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { Resume, PersonalInfo, Experience, Skill, Project, Hobby, Reference } from '@/types/resume';
-import { saveResume, loadResume } from '@/lib/storage/localStorage';
+import React, {
+  createContext,
+  useContext,
+  useState,
+  useEffect,
+  ReactNode,
+  useCallback,
+} from "react";
+import {
+  Resume,
+  PersonalInfo,
+  Experience,
+  Skill,
+  Project,
+  Hobby,
+  Reference,
+} from "@/types/resume";
+import { saveResume, loadResume } from "@/lib/storage/localStorage";
 
 interface ResumeContextType {
   resume: Resume;
@@ -17,7 +32,7 @@ interface ResumeContextType {
   updateProjects: (projects: Project[]) => void;
   updateHobbies: (hobbies: Hobby[]) => void;
   updateReferences: (references: Reference[]) => void;
-  updateMetadata: (metadata: Partial<Resume['metadata']>) => void;
+  updateMetadata: (metadata: Partial<Resume["metadata"]>) => void;
   addSkill: (skill: Skill) => void;
   removeSkill: (skillId: string) => void;
   resetResume: () => void;
@@ -30,10 +45,10 @@ function createEmptyResume(): Resume {
   return {
     id: `resume-${Date.now()}`,
     personalInfo: {
-      fullName: '',
-      email: '',
-      phone: '',
-      location: '',
+      fullName: "",
+      email: "",
+      phone: "",
+      location: "",
     },
     experience: [],
     skills: [],
@@ -41,7 +56,7 @@ function createEmptyResume(): Resume {
     hobbies: [],
     references: [],
     metadata: {
-      template: 'professional',
+      template: "professional",
       lastModified: new Date().toISOString(),
       createdAt: new Date().toISOString(),
     },
@@ -61,16 +76,20 @@ export function ResumeProvider({ children }: { children: ReactNode }) {
     setIsLoaded(true);
   }, []);
 
+  const saveToLocalStorage = useCallback(() => {
+    saveResume(resume);
+  }, [resume]);
+
   // Auto-save to localStorage whenever resume changes
   useEffect(() => {
     if (isLoaded) {
       const timeoutId = setTimeout(() => {
         saveToLocalStorage();
-      }, 1000); // Debounce saves by 1 second
+      }, 1000);
 
       return () => clearTimeout(timeoutId);
     }
-  }, [resume, isLoaded]);
+  }, [resume, isLoaded, saveToLocalStorage]);
 
   const updatePersonalInfo = (info: PersonalInfo) => {
     setResume((prev) => ({
@@ -138,7 +157,7 @@ export function ResumeProvider({ children }: { children: ReactNode }) {
     }));
   };
 
-  const updateMetadata = (metadata: Partial<Resume['metadata']>) => {
+  const updateMetadata = (metadata: Partial<Resume["metadata"]>) => {
     setResume((prev) => ({
       ...prev,
       metadata: {
@@ -175,10 +194,6 @@ export function ResumeProvider({ children }: { children: ReactNode }) {
     setResume(createEmptyResume());
   };
 
-  const saveToLocalStorage = () => {
-    saveResume(resume);
-  };
-
   const value: ResumeContextType = {
     resume,
     updatePersonalInfo,
@@ -195,16 +210,14 @@ export function ResumeProvider({ children }: { children: ReactNode }) {
   };
 
   return (
-    <ResumeContext.Provider value={value}>
-      {children}
-    </ResumeContext.Provider>
+    <ResumeContext.Provider value={value}>{children}</ResumeContext.Provider>
   );
 }
 
 export function useResume() {
   const context = useContext(ResumeContext);
   if (context === undefined) {
-    throw new Error('useResume must be used within a ResumeProvider');
+    throw new Error("useResume must be used within a ResumeProvider");
   }
   return context;
 }

@@ -157,41 +157,41 @@ export class AIEngine implements RecommendationEngine {
     this.model = model;
   }
 
-  async suggestSkills(
+  suggestSkills(
     context: JobContext,
     config?: Partial<RecommendationConfig>
-  ): Promise<SkillSuggestion[]> {
+  ): SkillSuggestion[] {
     // TODO: Implement AI-based skill suggestions
     // This would call an LLM API with context and return personalized suggestions
     throw new Error('AI-based recommendations not yet implemented');
   }
 
-  async generateBulletPoints(
+  generateBulletPoints(
     experience: Partial<Experience>,
     context: JobContext,
     config?: Partial<RecommendationConfig>
-  ): Promise<BulletPointSuggestion[]> {
+  ): BulletPointSuggestion[] {
     // TODO: Implement AI-based bullet point generation
     throw new Error('AI-based recommendations not yet implemented');
   }
 
-  async recommendHobbies(
+  recommendHobbies(
     context: ProfileContext,
     config?: Partial<RecommendationConfig>
-  ): Promise<HobbySuggestion[]> {
+  ): HobbySuggestion[] {
     // TODO: Implement AI-based hobby recommendations
     throw new Error('AI-based recommendations not yet implemented');
   }
 
-  async analyzeFeedback(resume: Resume): Promise<FeedbackItem[]> {
+  analyzeFeedback(resume: Resume): FeedbackItem[] {
     // TODO: Implement AI-based resume analysis
     throw new Error('AI-based recommendations not yet implemented');
   }
 
-  async getAllRecommendations(
+  getAllRecommendations(
     resume: Resume,
     config?: Partial<RecommendationConfig>
-  ): Promise<RecommendationResult> {
+  ): RecommendationResult {
     // TODO: Implement comprehensive AI-based recommendations
     throw new Error('AI-based recommendations not yet implemented');
   }

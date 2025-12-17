@@ -119,7 +119,7 @@ export function HobbiesForm({ initialData, onSubmit, onBack }: HobbiesFormProps)
               setNewHobby({ ...newHobby, description: e.target.value })
             }
             rows={3}
-            helperText="e.g., 'Completed 3 marathons' or 'Contributed to 10+ open source projects'"
+            helperText="e.g., &apos;Completed 3 marathons&apos; or &apos;Contributed to 10+ open source projects&apos;"
           />
 
           <Button

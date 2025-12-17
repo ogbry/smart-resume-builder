@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
 /**
  * Recommendation Card Component
  * Reusable card for displaying AI-like suggestions
  */
 
-import React from 'react';
-import { Card, CardContent } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
-import { SuggestionPriority } from '@/types/recommendations';
-import { clsx } from 'clsx';
+import React from "react";
+import { Card, CardContent } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
+import { SuggestionPriority } from "@/types/recommendations";
+import { clsx } from "clsx";
 
 export interface RecommendationCardProps {
   title: string;
@@ -33,16 +33,19 @@ export function RecommendationCard({
   metadata,
   children,
 }: RecommendationCardProps) {
-  const priorityColors: Record<SuggestionPriority, string> = {
-    high: 'success',
-    medium: 'info',
-    low: 'default',
+  const priorityColors: Record<
+    SuggestionPriority,
+    "default" | "primary" | "danger" | "success" | "warning" | "info"
+  > = {
+    high: "success",
+    medium: "info",
+    low: "default",
   };
 
   const priorityLabels: Record<SuggestionPriority, string> = {
-    high: 'Highly Recommended',
-    medium: 'Recommended',
-    low: 'Optional',
+    high: "Highly Recommended",
+    medium: "Recommended",
+    low: "Optional",
   };
 
   return (
@@ -50,8 +53,8 @@ export function RecommendationCard({
       variant="bordered"
       padding="md"
       className={clsx(
-        'transition-all hover:shadow-md',
-        priority === 'high' && 'border-green-300 bg-green-50/30'
+        "transition-all hover:shadow-md",
+        priority === "high" && "border-green-300 bg-green-50/30"
       )}
     >
       <CardContent>
@@ -116,7 +119,11 @@ export function RecommendationCard({
           )}
         </div>
 
-        {metadata && <div className="mt-3 pt-3 border-t border-secondary-200">{metadata}</div>}
+        {metadata && (
+          <div className="mt-3 pt-3 border-t border-secondary-200">
+            {metadata}
+          </div>
+        )}
       </CardContent>
     </Card>
   );

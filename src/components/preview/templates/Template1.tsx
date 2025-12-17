@@ -139,9 +139,9 @@ export function Template1({ resume }: TemplateProps) {
                   className="text-sm italic"
                   style={{ color: "#34495e", lineHeight: "1.6" }}
                 >
-                  {`"${hobby.name}${
+                  {`&quot;${hobby.name}${
                     hobby.description ? ": " + hobby.description : ""
-                  }"`}
+                  }&quot;`}
                 </p>
               </div>
             ))}

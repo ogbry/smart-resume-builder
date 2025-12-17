@@ -1,15 +1,15 @@
-'use client';
+"use client";
 
 /**
  * References Form Component
  * Step 6: Collect professional references
  */
 
-import React, { useState } from 'react';
-import { Input } from '@/components/ui/Input';
-import { Button } from '@/components/ui/Button';
-import { Card, CardContent } from '@/components/ui/Card';
-import { Reference } from '@/types/resume';
+import React, { useState } from "react";
+import { Input } from "@/components/ui/Input";
+import { Button } from "@/components/ui/Button";
+import { Card, CardContent } from "@/components/ui/Card";
+import { Reference } from "@/types/resume";
 
 export interface ReferencesFormProps {
   initialData?: Reference[];
@@ -17,32 +17,36 @@ export interface ReferencesFormProps {
   onBack?: () => void;
 }
 
-export function ReferencesForm({ initialData, onSubmit, onBack }: ReferencesFormProps) {
+export function ReferencesForm({
+  initialData,
+  onSubmit,
+  onBack,
+}: ReferencesFormProps) {
   const [references, setReferences] = useState<Reference[]>(initialData || []);
   const [newReference, setNewReference] = useState({
-    name: '',
-    company: '',
-    position: '',
-    email: '',
-    phone: '',
+    name: "",
+    company: "",
+    position: "",
+    email: "",
+    phone: "",
   });
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleAddReference = () => {
     if (!newReference.name.trim()) {
-      setError('Reference name is required');
+      setError("Reference name is required");
       return;
     }
     if (!newReference.company.trim()) {
-      setError('Company is required');
+      setError("Company is required");
       return;
     }
     if (!newReference.position.trim()) {
-      setError('Position is required');
+      setError("Position is required");
       return;
     }
     if (!newReference.email.trim()) {
-      setError('Email is required');
+      setError("Email is required");
       return;
     }
 
@@ -56,8 +60,14 @@ export function ReferencesForm({ initialData, onSubmit, onBack }: ReferencesForm
     };
 
     setReferences([...references, referenceData]);
-    setNewReference({ name: '', company: '', position: '', email: '', phone: '' });
-    setError('');
+    setNewReference({
+      name: "",
+      company: "",
+      position: "",
+      email: "",
+      phone: "",
+    });
+    setError("");
   };
 
   const handleRemoveReference = (id: string) => {
@@ -73,8 +83,9 @@ export function ReferencesForm({ initialData, onSubmit, onBack }: ReferencesForm
     <form onSubmit={handleSubmit} className="space-y-6">
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
         <p className="text-sm text-blue-800">
-          Add at least 3 professional references. References should be people who can
-          speak to your work ethic, skills, and professional achievements.
+          Add at least 3 professional references. References should be people
+          who can speak to your work ethic, skills, and professional
+          achievements.
         </p>
       </div>
 
@@ -97,7 +108,7 @@ export function ReferencesForm({ initialData, onSubmit, onBack }: ReferencesForm
               value={newReference.name}
               onChange={(e) => {
                 setNewReference({ ...newReference, name: e.target.value });
-                setError('');
+                setError("");
               }}
               required
             />
@@ -108,7 +119,7 @@ export function ReferencesForm({ initialData, onSubmit, onBack }: ReferencesForm
               value={newReference.company}
               onChange={(e) => {
                 setNewReference({ ...newReference, company: e.target.value });
-                setError('');
+                setError("");
               }}
               required
             />
@@ -119,7 +130,7 @@ export function ReferencesForm({ initialData, onSubmit, onBack }: ReferencesForm
               value={newReference.position}
               onChange={(e) => {
                 setNewReference({ ...newReference, position: e.target.value });
-                setError('');
+                setError("");
               }}
               required
             />
@@ -131,7 +142,7 @@ export function ReferencesForm({ initialData, onSubmit, onBack }: ReferencesForm
               value={newReference.email}
               onChange={(e) => {
                 setNewReference({ ...newReference, email: e.target.value });
-                setError('');
+                setError("");
               }}
               required
             />
@@ -165,15 +176,19 @@ export function ReferencesForm({ initialData, onSubmit, onBack }: ReferencesForm
           </h3>
 
           {references.map((ref) => (
-            <Card key={ref.id} variant="outlined">
+            <Card key={ref.id} variant="bordered">
               <CardContent className="p-4">
                 <div className="flex justify-between items-start">
                   <div className="flex-1">
-                    <h4 className="font-semibold text-secondary-900">{ref.name}</h4>
+                    <h4 className="font-semibold text-secondary-900">
+                      {ref.name}
+                    </h4>
                     <p className="text-sm text-secondary-600">
                       {ref.position} at {ref.company}
                     </p>
-                    <p className="text-sm text-secondary-600 mt-1">{ref.email}</p>
+                    <p className="text-sm text-secondary-600 mt-1">
+                      {ref.email}
+                    </p>
                     {ref.phone && (
                       <p className="text-sm text-secondary-600">{ref.phone}</p>
                     )}
@@ -200,7 +215,7 @@ export function ReferencesForm({ initialData, onSubmit, onBack }: ReferencesForm
           </Button>
         )}
         <Button type="submit" variant="primary" fullWidth={!onBack}>
-          {references.length >= 3 ? 'Continue' : 'Skip for Now'}
+          {references.length >= 3 ? "Continue" : "Skip for Now"}
         </Button>
       </div>
     </form>

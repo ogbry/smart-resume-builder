@@ -1,6 +1,6 @@
 /**
- * Creative Template
- * Modern, visually appealing design with color accents
+ * Creative Template - Modern & Vibrant
+ * Colorful design with gradient accents
  */
 
 import React from "react";
@@ -9,286 +9,244 @@ import { TemplateProps } from "@/types/templates";
 export function CreativeTemplate({ resume }: TemplateProps) {
   return (
     <div
-      className="bg-white flex"
+      className="bg-white"
       style={{
         width: "210mm",
         minHeight: "297mm",
-        fontFamily: "'Inter', 'Helvetica', sans-serif",
-        fontSize: "9pt",
+        fontFamily: "'Poppins', 'Arial', sans-serif",
+        fontSize: "10pt",
+        lineHeight: "1.5",
+        color: "#1f2937",
       }}
     >
-      {/* Left Sidebar - Accent Color */}
-      <div
-        className="p-8"
+      {/* Colorful Header */}
+      <header
+        className="p-12 pb-10"
         style={{
-          width: "35%",
-          background: "linear-gradient(180deg, #0ea5e9 0%, #0284c7 100%)",
-          color: "white"
+          background: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%)",
+          color: "#ffffff",
         }}
       >
-        {/* Photo */}
-        <div className="mb-6 flex justify-center">
-          <div
-            className="rounded-2xl overflow-hidden"
-            style={{
-              width: "140px",
-              height: "140px",
-              backgroundColor: "rgba(255, 255, 255, 0.2)",
-              border: "4px solid rgba(255, 255, 255, 0.3)"
-            }}
-          >
-            <svg
-              className="w-full h-full"
-              fill="rgba(255, 255, 255, 0.6)"
-              viewBox="0 0 20 20"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </div>
+        <h1
+          className="text-5xl font-bold mb-4"
+          style={{ letterSpacing: "-1px" }}
+        >
+          {resume.personalInfo.fullName || "Your Name"}
+        </h1>
+
+        <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm" style={{ color: "#e9d5ff" }}>
+          {resume.personalInfo.email && (
+            <span className="flex items-center gap-1.5">
+              ✉ {resume.personalInfo.email}
+            </span>
+          )}
+          {resume.personalInfo.phone && (
+            <span className="flex items-center gap-1.5">
+              ☎ {resume.personalInfo.phone}
+            </span>
+          )}
+          {resume.personalInfo.location && (
+            <span className="flex items-center gap-1.5">
+              📍 {resume.personalInfo.location}
+            </span>
+          )}
         </div>
 
-        {/* Contact Info */}
-        <div className="mb-6">
-          <h3 className="text-xs font-bold mb-3" style={{ letterSpacing: "1px", opacity: 0.9 }}>
-            CONTACT
-          </h3>
-          <div className="space-y-2 text-xs" style={{ opacity: 0.95 }}>
-            {resume.personalInfo.email && (
-              <div className="flex items-start gap-2">
-                <span>✉</span>
-                <span className="break-all">{resume.personalInfo.email}</span>
-              </div>
-            )}
-            {resume.personalInfo.phone && (
-              <div className="flex items-start gap-2">
-                <span>☎</span>
-                <span>{resume.personalInfo.phone}</span>
-              </div>
-            )}
-            {resume.personalInfo.location && (
-              <div className="flex items-start gap-2">
-                <span>📍</span>
-                <span>{resume.personalInfo.location}</span>
-              </div>
-            )}
+        {(resume.personalInfo.linkedIn || resume.personalInfo.github || resume.personalInfo.portfolio) && (
+          <div className="flex flex-wrap gap-x-4 gap-y-1 text-sm mt-3">
             {resume.personalInfo.linkedIn && (
-              <div className="flex items-start gap-2">
-                <span>in</span>
-                <span className="break-all">
-                  {resume.personalInfo.linkedIn.replace(/^https?:\/\/(www\.)?/, '')}
-                </span>
-              </div>
+              <a
+                href={resume.personalInfo.linkedIn}
+                className="underline"
+                style={{ color: "#fef3c7" }}
+              >
+                LinkedIn
+              </a>
+            )}
+            {resume.personalInfo.github && (
+              <a
+                href={resume.personalInfo.github}
+                className="underline"
+                style={{ color: "#fef3c7" }}
+              >
+                GitHub
+              </a>
+            )}
+            {resume.personalInfo.portfolio && (
+              <a
+                href={resume.personalInfo.portfolio}
+                className="underline"
+                style={{ color: "#fef3c7" }}
+              >
+                Portfolio
+              </a>
             )}
           </div>
-        </div>
-
-        {/* Skills */}
-        {resume.skills.length > 0 && (
-          <div className="mb-6">
-            <h3 className="text-xs font-bold mb-3" style={{ letterSpacing: "1px", opacity: 0.9 }}>
-              SKILLS
-            </h3>
-            <div className="space-y-3">
-              {resume.skills.slice(0, 8).map((skill, idx) => (
-                <div key={skill.id}>
-                  <div className="flex justify-between mb-1 text-xs" style={{ opacity: 0.95 }}>
-                    <span className="font-medium">{skill.name}</span>
-                    <span>{Math.max(70, 100 - idx * 5)}%</span>
-                  </div>
-                  <div
-                    className="w-full rounded-full h-1"
-                    style={{ backgroundColor: "rgba(255, 255, 255, 0.3)" }}
-                  >
-                    <div
-                      className="h-1 rounded-full"
-                      style={{
-                        width: `${Math.max(70, 100 - idx * 5)}%`,
-                        backgroundColor: "white"
-                      }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
         )}
+      </header>
 
-        {/* Interests */}
-        {resume.hobbies.length > 0 && (
-          <div className="mb-6">
-            <h3 className="text-xs font-bold mb-3" style={{ letterSpacing: "1px", opacity: 0.9 }}>
-              INTERESTS
-            </h3>
-            <div className="flex flex-wrap gap-2">
-              {resume.hobbies.map((hobby) => (
-                <span
-                  key={hobby.id}
-                  className="px-3 py-1 text-xs rounded-full"
-                  style={{
-                    backgroundColor: "rgba(255, 255, 255, 0.2)",
-                    border: "1px solid rgba(255, 255, 255, 0.3)"
-                  }}
-                >
-                  {hobby.name}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* References */}
-        {resume.references.length > 0 && (
-          <div className="mb-4">
-            <h3 className="text-xs font-bold mb-3" style={{ letterSpacing: "1px", opacity: 0.9 }}>
-              REFERENCES
-            </h3>
-            {resume.references.slice(0, 2).map((ref) => (
-              <div key={ref.id} className="mb-4 text-xs" style={{ opacity: 0.95 }}>
-                <p className="font-bold">{ref.name}</p>
-                <p style={{ opacity: 0.9 }}>{ref.position}</p>
-                <p style={{ opacity: 0.9 }}>{ref.company}</p>
-                <p className="mt-1" style={{ fontSize: "8pt" }}>{ref.email}</p>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* Right Content Area */}
-      <div className="flex-1 p-8 pl-10">
-        {/* Name and Title */}
-        <div className="mb-8">
-          <h1
-            className="text-5xl font-bold mb-2"
-            style={{ color: "#0f172a", letterSpacing: "-1px" }}
-          >
-            {resume.personalInfo.fullName}
-          </h1>
-          <div
-            className="inline-block px-4 py-1 rounded-full text-sm font-semibold"
-            style={{
-              background: "linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%)",
-              color: "white"
-            }}
-          >
-            {resume.metadata.targetRole || "Professional"}
-          </div>
-        </div>
-
-        {/* Profile Summary */}
+      <div className="px-12 py-8">
+        {/* Professional Summary */}
         {resume.personalInfo.summary && (
-          <div className="mb-8">
-            <div className="flex items-center gap-3 mb-3">
-              <div
-                className="w-10 h-1 rounded"
-                style={{ backgroundColor: "#0ea5e9" }}
-              />
-              <h2 className="text-lg font-bold" style={{ color: "#0f172a" }}>
-                PROFILE
-              </h2>
-            </div>
-            <p className="text-sm leading-relaxed" style={{ color: "#475569" }}>
+          <section className="mb-8">
+            <h2
+              className="text-2xl font-bold mb-3"
+              style={{
+                color: "#6366f1",
+                borderBottom: "3px solid #6366f1",
+                display: "inline-block",
+                paddingBottom: "4px",
+              }}
+            >
+              About Me
+            </h2>
+            <p className="text-sm leading-relaxed mt-3" style={{ color: "#4b5563" }}>
               {resume.personalInfo.summary}
             </p>
-          </div>
+          </section>
         )}
 
-        {/* Experience */}
+        {/* Experience Section */}
         {resume.experience.length > 0 && (
-          <div className="mb-8">
-            <div className="flex items-center gap-3 mb-4">
-              <div
-                className="w-10 h-1 rounded"
-                style={{ backgroundColor: "#0ea5e9" }}
-              />
-              <h2 className="text-lg font-bold" style={{ color: "#0f172a" }}>
-                EXPERIENCE
-              </h2>
-            </div>
-            {resume.experience.map((exp, idx) => (
-              <div key={exp.id} className="mb-6 relative pl-6">
-                {/* Timeline dot */}
-                <div
-                  className="absolute left-0 top-1 w-3 h-3 rounded-full"
-                  style={{ backgroundColor: "#0ea5e9" }}
-                />
-                {idx < resume.experience.length - 1 && (
-                  <div
-                    className="absolute left-[5px] top-5 w-0.5 h-full"
-                    style={{ backgroundColor: "#cbd5e1" }}
-                  />
-                )}
-                <div className="flex justify-between items-start mb-1">
-                  <div>
-                    <h3 className="font-bold text-sm" style={{ color: "#0f172a" }}>
-                      {exp.position}
-                    </h3>
-                    <p className="text-xs font-semibold" style={{ color: "#0ea5e9" }}>
-                      {exp.company}
-                    </p>
+          <section className="mb-8">
+            <h2
+              className="text-2xl font-bold mb-4"
+              style={{
+                color: "#6366f1",
+                borderBottom: "3px solid #6366f1",
+                display: "inline-block",
+                paddingBottom: "4px",
+              }}
+            >
+              Experience
+            </h2>
+            <div className="space-y-6 mt-4">
+              {resume.experience.map((exp) => (
+                <div key={exp.id}>
+                  <div className="flex justify-between items-start mb-2">
+                    <div>
+                      <h3 className="font-bold text-lg" style={{ color: "#111827" }}>
+                        {exp.position}
+                      </h3>
+                      <p className="text-sm font-semibold" style={{ color: "#8b5cf6" }}>
+                        {exp.company}
+                        {exp.location && <span style={{ color: "#9ca3af" }}> • {exp.location}</span>}
+                      </p>
+                    </div>
+                    <span
+                      className="text-sm whitespace-nowrap ml-4 px-3 py-1 rounded-full"
+                      style={{
+                        backgroundColor: "#f3f4f6",
+                        color: "#6b7280",
+                      }}
+                    >
+                      {exp.startDate} - {exp.isCurrentRole ? "Present" : exp.endDate}
+                    </span>
                   </div>
-                  <span className="text-xs" style={{ color: "#94a3b8" }}>
-                    {exp.startDate} - {exp.isCurrentRole ? "Present" : exp.endDate}
-                  </span>
+
+                  {exp.bulletPoints && exp.bulletPoints.length > 0 && (
+                    <ul className="space-y-2 mt-3">
+                      {exp.bulletPoints.map((bullet, idx) => (
+                        <li
+                          key={idx}
+                          className="text-sm flex items-start"
+                          style={{ color: "#4b5563" }}
+                        >
+                          <span className="mr-2 mt-1" style={{ color: "#6366f1" }}>●</span>
+                          <span>{bullet}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
-                {exp.bulletPoints && exp.bulletPoints.length > 0 && (
-                  <ul className="mt-2 space-y-1">
-                    {exp.bulletPoints.map((bullet, bIdx) => (
-                      <li
-                        key={bIdx}
-                        className="text-xs flex items-start"
-                        style={{ color: "#64748b", lineHeight: "1.6" }}
-                      >
-                        <span className="mr-2" style={{ color: "#0ea5e9" }}>▸</span>
-                        <span>{bullet}</span>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          </section>
         )}
 
-        {/* Projects/Achievements */}
-        {resume.projects.length > 0 && (
-          <div className="mb-6">
-            <div className="flex items-center gap-3 mb-4">
-              <div
-                className="w-10 h-1 rounded"
-                style={{ backgroundColor: "#0ea5e9" }}
-              />
-              <h2 className="text-lg font-bold" style={{ color: "#0f172a" }}>
-                ACHIEVEMENTS
-              </h2>
-            </div>
-            <div className="grid grid-cols-1 gap-4">
-              {resume.projects.map((project) => (
-                <div
-                  key={project.id}
-                  className="p-4 rounded-lg"
+        {/* Skills Section */}
+        {resume.skills.length > 0 && (
+          <section className="mb-8">
+            <h2
+              className="text-2xl font-bold mb-4"
+              style={{
+                color: "#6366f1",
+                borderBottom: "3px solid #6366f1",
+                display: "inline-block",
+                paddingBottom: "4px",
+              }}
+            >
+              Skills
+            </h2>
+            <div className="flex flex-wrap gap-2 mt-4">
+              {resume.skills.map((skill, idx) => (
+                <span
+                  key={skill.id}
+                  className="px-4 py-2 text-sm font-medium rounded-lg"
                   style={{
-                    backgroundColor: "#f8fafc",
-                    borderLeft: "3px solid #0ea5e9"
+                    background:
+                      idx % 3 === 0
+                        ? "linear-gradient(135deg, #6366f1, #8b5cf6)"
+                        : idx % 3 === 1
+                        ? "linear-gradient(135deg, #8b5cf6, #d946ef)"
+                        : "linear-gradient(135deg, #ec4899, #f97316)",
+                    color: "#ffffff",
                   }}
                 >
-                  <h3 className="font-bold text-sm mb-1" style={{ color: "#0f172a" }}>
-                    {project.name}
-                  </h3>
-                  <p className="text-xs" style={{ color: "#64748b", lineHeight: "1.5" }}>
-                    {project.description}
-                  </p>
+                  {skill.name}
+                </span>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Projects Section */}
+        {resume.projects.length > 0 && (
+          <section className="mb-8">
+            <h2
+              className="text-2xl font-bold mb-4"
+              style={{
+                color: "#6366f1",
+                borderBottom: "3px solid #6366f1",
+                display: "inline-block",
+                paddingBottom: "4px",
+              }}
+            >
+              Projects
+            </h2>
+            <div className="space-y-5 mt-4">
+              {resume.projects.map((project) => (
+                <div key={project.id}>
+                  <div className="flex justify-between items-start mb-1">
+                    <h3 className="font-bold text-base" style={{ color: "#111827" }}>
+                      {project.name}
+                    </h3>
+                    {project.link && (
+                      <a
+                        href={project.link}
+                        className="text-sm font-medium"
+                        style={{ color: "#6366f1" }}
+                      >
+                        View →
+                      </a>
+                    )}
+                  </div>
+                  {project.description && (
+                    <p className="text-sm mb-2" style={{ color: "#4b5563" }}>
+                      {project.description}
+                    </p>
+                  )}
                   {project.technologies && project.technologies.length > 0 && (
-                    <div className="flex flex-wrap gap-1 mt-2">
+                    <div className="flex flex-wrap gap-1.5 mt-2">
                       {project.technologies.map((tech, idx) => (
                         <span
                           key={idx}
-                          className="px-2 py-0.5 text-xs rounded"
-                          style={{ backgroundColor: "#e0f2fe", color: "#0369a1" }}
+                          className="text-xs px-2 py-1 rounded"
+                          style={{
+                            backgroundColor: "#f5f3ff",
+                            color: "#7c3aed",
+                            border: "1px solid #ddd6fe",
+                          }}
                         >
                           {tech}
                         </span>
@@ -298,7 +256,87 @@ export function CreativeTemplate({ resume }: TemplateProps) {
                 </div>
               ))}
             </div>
-          </div>
+          </section>
+        )}
+
+        {/* Interests */}
+        {resume.hobbies.length > 0 && (
+          <section className="mb-8">
+            <h2
+              className="text-2xl font-bold mb-4"
+              style={{
+                color: "#6366f1",
+                borderBottom: "3px solid #6366f1",
+                display: "inline-block",
+                paddingBottom: "4px",
+              }}
+            >
+              Interests
+            </h2>
+            <div className="flex flex-wrap gap-3 mt-4">
+              {resume.hobbies.map((hobby, idx) => (
+                <span
+                  key={hobby.id}
+                  className="px-3 py-1.5 text-sm font-medium rounded-full"
+                  style={{
+                    backgroundColor: idx % 2 === 0 ? "#ede9fe" : "#fae8ff",
+                    color: idx % 2 === 0 ? "#7c3aed" : "#a855f7",
+                  }}
+                >
+                  {hobby.name}
+                </span>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* References */}
+        {resume.references.length > 0 && (
+          <section className="mb-8">
+            <h2
+              className="text-2xl font-bold mb-4"
+              style={{
+                color: "#6366f1",
+                borderBottom: "3px solid #6366f1",
+                display: "inline-block",
+                paddingBottom: "4px",
+              }}
+            >
+              References
+            </h2>
+            <div className="grid grid-cols-2 gap-6 mt-4">
+              {resume.references.map((ref) => (
+                <div
+                  key={ref.id}
+                  className="p-4 rounded-lg"
+                  style={{
+                    backgroundColor: "#f9fafb",
+                    border: "2px solid #e5e7eb",
+                  }}
+                >
+                  <p className="font-bold text-sm" style={{ color: "#111827" }}>
+                    {ref.name}
+                  </p>
+                  <p className="text-sm" style={{ color: "#6366f1" }}>
+                    {ref.position}
+                  </p>
+                  <p className="text-sm" style={{ color: "#6b7280" }}>
+                    {ref.company}
+                  </p>
+                  {ref.email && (
+                    <p className="text-sm mt-2" style={{ color: "#8b5cf6" }}>
+                      {ref.email}
+                    </p>
+                  )}
+                  {ref.phone && (
+                    <p className="text-sm" style={{ color: "#6b7280" }}>
+                      {ref.phone}
+                    </p>
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
         )}
       </div>
     </div>

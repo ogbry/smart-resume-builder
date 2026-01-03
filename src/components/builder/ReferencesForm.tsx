@@ -110,7 +110,6 @@ export function ReferencesForm({
                 setNewReference({ ...newReference, name: e.target.value });
                 setError("");
               }}
-              required
             />
 
             <Input
@@ -121,7 +120,6 @@ export function ReferencesForm({
                 setNewReference({ ...newReference, company: e.target.value });
                 setError("");
               }}
-              required
             />
 
             <Input
@@ -132,7 +130,6 @@ export function ReferencesForm({
                 setNewReference({ ...newReference, position: e.target.value });
                 setError("");
               }}
-              required
             />
 
             <Input
@@ -144,7 +141,6 @@ export function ReferencesForm({
                 setNewReference({ ...newReference, email: e.target.value });
                 setError("");
               }}
-              required
             />
 
             <Input

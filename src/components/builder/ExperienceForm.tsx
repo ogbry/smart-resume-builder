@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
 /**
  * Experience Form Component
  * Step 2: Collect work experience
  */
 
-import React, { useState } from 'react';
-import { Input } from '@/components/ui/Input';
-import { Textarea } from '@/components/ui/Textarea';
-import { Button } from '@/components/ui/Button';
-import { Card, CardHeader, CardContent } from '@/components/ui/Card';
-import { Experience } from '@/types/resume';
-import { validateExperience } from '@/lib/utils/validation';
+import React, { useState } from "react";
+import { Input } from "@/components/ui/Input";
+import { Textarea } from "@/components/ui/Textarea";
+import { Button } from "@/components/ui/Button";
+import { Card, CardHeader, CardContent } from "@/components/ui/Card";
+import { Experience } from "@/types/resume";
+import { validateExperience } from "@/lib/utils/validation";
 
 export interface ExperienceFormProps {
   initialData?: Experience[];
@@ -19,22 +19,28 @@ export interface ExperienceFormProps {
   onBack?: () => void;
 }
 
-export function ExperienceForm({ initialData, onSubmit, onBack }: ExperienceFormProps) {
+export function ExperienceForm({
+  initialData,
+  onSubmit,
+  onBack,
+}: ExperienceFormProps) {
   const [experiences, setExperiences] = useState<Experience[]>(
     initialData && initialData.length > 0
       ? initialData
       : [createEmptyExperience()]
   );
-  const [errors, setErrors] = useState<Record<string, Record<string, string>>>({});
+  const [errors, setErrors] = useState<Record<string, Record<string, string>>>(
+    {}
+  );
 
   function createEmptyExperience(): Experience {
     return {
       id: `exp-${Date.now()}`,
-      company: '',
-      position: '',
-      location: '',
-      startDate: '',
-      endDate: '',
+      company: "",
+      position: "",
+      location: "",
+      startDate: "",
+      endDate: "",
       isCurrentRole: false,
       bulletPoints: [],
     };
@@ -64,12 +70,16 @@ export function ExperienceForm({ initialData, onSubmit, onBack }: ExperienceForm
     if (errors[id]?.[field]) {
       setErrors((prev) => ({
         ...prev,
-        [id]: { ...prev[id], [field]: '' },
+        [id]: { ...prev[id], [field]: "" },
       }));
     }
   };
 
-  const handleBulletPointChange = (id: string, index: number, value: string) => {
+  const handleBulletPointChange = (
+    id: string,
+    index: number,
+    value: string
+  ) => {
     setExperiences(
       experiences.map((exp) => {
         if (exp.id === id) {
@@ -86,7 +96,7 @@ export function ExperienceForm({ initialData, onSubmit, onBack }: ExperienceForm
     setExperiences(
       experiences.map((exp) =>
         exp.id === id
-          ? { ...exp, bulletPoints: [...exp.bulletPoints, ''] }
+          ? { ...exp, bulletPoints: [...exp.bulletPoints, ""] }
           : exp
       )
     );
@@ -96,7 +106,9 @@ export function ExperienceForm({ initialData, onSubmit, onBack }: ExperienceForm
     setExperiences(
       experiences.map((exp) => {
         if (exp.id === id) {
-          const newBulletPoints = exp.bulletPoints.filter((_, i) => i !== index);
+          const newBulletPoints = exp.bulletPoints.filter(
+            (_, i) => i !== index
+          );
           return { ...exp, bulletPoints: newBulletPoints };
         }
         return exp;
@@ -132,43 +144,53 @@ export function ExperienceForm({ initialData, onSubmit, onBack }: ExperienceForm
         <Card key={exp.id} variant="bordered">
           <CardHeader
             title={`Experience ${idx + 1}`}
-            description={exp.company || 'Add your work experience details'}
+            description={exp.company || "Add your work experience details"}
           />
           <CardContent className="space-y-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <Input
-                label="Company"
-                placeholder="Acme Inc."
-                value={exp.company}
-                onChange={(e) => handleChange(exp.id, 'company', e.target.value)}
-                error={errors[exp.id]?.company}
-                required
-              />
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <Input
+                  label="Company"
+                  placeholder="Acme Inc."
+                  value={exp.company}
+                  onChange={(e) =>
+                    handleChange(exp.id, "company", e.target.value)
+                  }
+                  error={errors[exp.id]?.company}
+                  required
+                />
 
-              <Input
-                label="Position"
-                placeholder="Software Engineer"
-                value={exp.position}
-                onChange={(e) => handleChange(exp.id, 'position', e.target.value)}
-                error={errors[exp.id]?.position}
-                required
-              />
+                <Input
+                  label="Position"
+                  placeholder="Software Engineer"
+                  value={exp.position}
+                  onChange={(e) =>
+                    handleChange(exp.id, "position", e.target.value)
+                  }
+                  error={errors[exp.id]?.position}
+                  required
+                />
+              </div>
 
               <Input
                 label="Location"
                 placeholder="San Francisco, CA"
                 value={exp.location}
-                onChange={(e) => handleChange(exp.id, 'location', e.target.value)}
+                onChange={(e) =>
+                  handleChange(exp.id, "location", e.target.value)
+                }
                 error={errors[exp.id]?.location}
                 required
               />
 
-              <div className="flex items-center gap-4">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Input
                   label="Start Date"
                   type="month"
                   value={exp.startDate}
-                  onChange={(e) => handleChange(exp.id, 'startDate', e.target.value)}
+                  onChange={(e) =>
+                    handleChange(exp.id, "startDate", e.target.value)
+                  }
                   error={errors[exp.id]?.startDate}
                   required
                 />
@@ -177,7 +199,9 @@ export function ExperienceForm({ initialData, onSubmit, onBack }: ExperienceForm
                   label="End Date"
                   type="month"
                   value={exp.endDate}
-                  onChange={(e) => handleChange(exp.id, 'endDate', e.target.value)}
+                  onChange={(e) =>
+                    handleChange(exp.id, "endDate", e.target.value)
+                  }
                   error={errors[exp.id]?.endDate}
                   disabled={exp.isCurrentRole}
                   required={!exp.isCurrentRole}
@@ -190,7 +214,7 @@ export function ExperienceForm({ initialData, onSubmit, onBack }: ExperienceForm
                 type="checkbox"
                 checked={exp.isCurrentRole}
                 onChange={(e) =>
-                  handleChange(exp.id, 'isCurrentRole', e.target.checked)
+                  handleChange(exp.id, "isCurrentRole", e.target.checked)
                 }
                 className="w-4 h-4 text-primary-600 rounded focus:ring-primary-500"
               />
@@ -226,6 +250,7 @@ export function ExperienceForm({ initialData, onSubmit, onBack }: ExperienceForm
               ))}
 
               <Button
+                className="ml-2"
                 type="button"
                 variant="outline"
                 size="sm"

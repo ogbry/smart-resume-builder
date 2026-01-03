@@ -132,21 +132,91 @@ export default function BuilderPage() {
     }
   };
 
+  const handleNext = () => {
+    const currentIndex = SECTIONS.findIndex(s => s.id === activeSection);
+    if (currentIndex < SECTIONS.length - 1) {
+      setActiveSection(SECTIONS[currentIndex + 1].id);
+    }
+  };
+
+  const handleBack = () => {
+    const currentIndex = SECTIONS.findIndex(s => s.id === activeSection);
+    if (currentIndex > 0) {
+      setActiveSection(SECTIONS[currentIndex - 1].id);
+    }
+  };
+
   const renderSectionContent = () => {
     switch (activeSection) {
       case 'personal':
         return (
-          <PersonalInfoForm
-            initialData={resume.personalInfo}
-            onSubmit={(data) => updatePersonalInfo(data)}
-          />
+          <div className="space-y-6">
+            <PersonalInfoForm
+              initialData={resume.personalInfo}
+              onSubmit={(data) => {
+                updatePersonalInfo(data);
+                handleNext();
+              }}
+            />
+
+            {/* Target Role & Experience Level for AI Recommendations */}
+            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-xl p-6">
+              <div className="flex items-start gap-3 mb-4">
+                <div className="w-10 h-10 bg-blue-600 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                  </svg>
+                </div>
+                <div>
+                  <h3 className="text-lg font-bold text-gray-900 mb-1">Enable AI Recommendations</h3>
+                  <p className="text-sm text-gray-600">Set your target role to get personalized skill suggestions, bullet points, and more!</p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Target Role
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="e.g., Senior Software Engineer"
+                    value={resume.metadata.targetRole || ''}
+                    onChange={(e) => updateMetadata({ targetRole: e.target.value })}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Experience Level
+                  </label>
+                  <select
+                    value={resume.metadata.experienceLevel || 'junior'}
+                    onChange={(e) => updateMetadata({ experienceLevel: e.target.value as any })}
+                    className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  >
+                    <option value="entry">Entry Level</option>
+                    <option value="junior">Junior</option>
+                    <option value="mid">Mid-Level</option>
+                    <option value="senior">Senior</option>
+                    <option value="lead">Lead/Principal</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
         );
       case 'experience':
         return (
           <div className="space-y-6">
             <ExperienceForm
               initialData={resume.experience}
-              onSubmit={(data) => updateExperience(data)}
+              onSubmit={(data) => {
+                updateExperience(data);
+                handleNext();
+              }}
+              onBack={handleBack}
             />
             {resume.experience.length > 0 && jobContext.targetRole && (
               <BulletPointSuggestions
@@ -162,7 +232,11 @@ export default function BuilderPage() {
           <div className="space-y-6">
             <SkillsForm
               initialData={resume.skills}
-              onSubmit={(data) => updateSkills(data)}
+              onSubmit={(data) => {
+                updateSkills(data);
+                handleNext();
+              }}
+              onBack={handleBack}
             />
             {jobContext.targetRole && (
               <SkillSuggestions
@@ -177,7 +251,11 @@ export default function BuilderPage() {
         return (
           <ProjectsForm
             initialData={resume.projects}
-            onSubmit={(data) => updateProjects(data)}
+            onSubmit={(data) => {
+              updateProjects(data);
+              handleNext();
+            }}
+            onBack={handleBack}
           />
         );
       case 'hobbies':
@@ -185,7 +263,11 @@ export default function BuilderPage() {
           <div className="space-y-6">
             <HobbiesForm
               initialData={resume.hobbies}
-              onSubmit={(data) => updateHobbies(data)}
+              onSubmit={(data) => {
+                updateHobbies(data);
+                handleNext();
+              }}
+              onBack={handleBack}
             />
             {profileContext.targetRole && (
               <HobbySuggestions
@@ -200,7 +282,12 @@ export default function BuilderPage() {
         return (
           <ReferencesForm
             initialData={resume.references}
-            onSubmit={(data) => updateReferences(data)}
+            onSubmit={(data) => {
+              updateReferences(data);
+              // On the last section, show a success message or preview
+              setShowPreviewModal(true);
+            }}
+            onBack={handleBack}
           />
         );
       default:
